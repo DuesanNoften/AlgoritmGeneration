@@ -6,13 +6,14 @@ public class main {
     Individual fittest;
     Individual secondFittest;
     int generationCount = 0;
-    Population bestGeneration=new Population();
-    int bestGenerationNumber;
+    static int bestGenerationNumber;
     public static void main(String[] args) {
 
         Random rn = new Random();
 
         main supremacy = new main();
+        Population bestGeneration= new Population();
+        bestGeneration.setFittest(0);
 
         //Initialize population
         supremacy.population.newPopulation(10);
@@ -44,9 +45,10 @@ public class main {
             supremacy.population.calculateFitness();
 
             System.out.println("Generation: " + supremacy.generationCount + " Fittest: " + supremacy.population.fittest);
-            if (supremacy.population.fittest> supremacy.bestGeneration.fittest) {
-                supremacy.bestGeneration = supremacy.population;
-                supremacy.bestGenerationNumber= supremacy.generationCount;
+            if (supremacy.population.fittest> bestGeneration.fittest) {
+                bestGeneration.individuals = supremacy.population.getIndividuals();
+                bestGeneration.calculateFitness();
+                bestGenerationNumber= supremacy.generationCount-1;
             }
         }
         if (supremacy.population.fittest == 5) {
@@ -59,14 +61,13 @@ public class main {
 
         }
         else {
-            System.out.println("\nNearest solution found in generation " + supremacy.bestGenerationNumber);
-            System.out.println("Fitness: " + supremacy.bestGeneration.getBetter().fitness);
+            System.out.println("\nNearest solution found in generation " + bestGenerationNumber);
+            System.out.println("Fitness: " + bestGeneration.getBetter().fitness);
             System.out.print("Genes: ");
             for (int i = 0; i < 5; i++) {
-                System.out.print(supremacy.bestGeneration.getBetter().genes[i]);
+                System.out.print(bestGeneration.getBetter().genes[i]);
             }
         }
-        System.out.println("");
 
     }
 

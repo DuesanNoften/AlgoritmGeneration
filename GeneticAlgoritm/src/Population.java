@@ -62,4 +62,11 @@ public class Population {
         getBetter();
     }
 
+    public Individual[] getIndividuals() {
+        return individuals;
+    }
+
+    public void setFittest(int fittest) {
+        this.fittest = fittest;
+    }
 }
